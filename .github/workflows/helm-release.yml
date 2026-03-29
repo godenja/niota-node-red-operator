@@ -28,9 +28,26 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
+      - name: Initialize gh-pages branch
+        run: |
+          if ! git ls-remote --exit-code --heads origin gh-pages; then
+            git checkout --orphan gh-pages
+            git rm -rf .
+            mkdir -p .
+            cat <<'EOF' > index.yaml
+          apiVersion: v1
+          entries: {}
+          EOF
+            git add index.yaml
+            git commit -m "Initialize Helm chart repository"
+            git push origin gh-pages
+            git checkout main
+          fi
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         with:
           charts_dir: chart
+          skip_existing: true
         env:
           CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
