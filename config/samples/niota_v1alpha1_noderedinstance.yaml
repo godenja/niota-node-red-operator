@@ -1,0 +1,29 @@
+---
+apiVersion: niota.io/v1alpha1
+kind: NodeRedInstance
+metadata:
+  name: lkos-node-red
+  namespace: node-red-instances
+spec:
+  id: e2ba905bf306d3cb20e2cff46faca223
+
+  domain: flows.datahub.digital
+  tlsSecretName: flows-tls
+  ingressClass: traefik
+
+  oauth:
+    clientId: e2b3a374-125a-4c11-a90b-e8e83168f6a0
+    clientSecret: a87833f0-11e2-4454-b9bc-2e47774470e8
+    authUrl: https://datahub.digital/api/v1/oauth2/authorize
+    tokenUrl: https://datahub.digital/api/v1/oauth2/token
+
+  image:
+    repository: ghcr.io/my-org/niota-node-red
+    tag: "3.1.0"
+    pullSecretName: ghcr-pull-secret
+
+  storageSize: 2Gi
+  # storageClass: standard   # omit to use cluster default
+
+  # credentialSecret: "my-existing-key"   # set only when migrating an existing
+  #                                        # instance; omit to auto-generate

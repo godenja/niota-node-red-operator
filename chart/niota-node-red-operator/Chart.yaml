@@ -1,0 +1,16 @@
+apiVersion: v2
+name: niota-node-red-operator
+description: Kubernetes operator that manages Node-RED instances as a custom resource (NodeRedInstance).
+type: application
+version: 0.1.0
+appVersion: "latest"
+keywords:
+  - node-red
+  - operator
+  - niota
+  - iot
+home: https://github.com/niota/node-red-operator
+sources:
+  - https://github.com/niota/node-red-operator
+maintainers:
+  - name: niota

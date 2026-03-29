@@ -1,0 +1,207 @@
+{{- if .Values.installCRDs }}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: noderedinstances.niota.io
+  labels:
+    {{- include "niota-node-red-operator.labels" . | nindent 4 }}
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.14.0
+spec:
+  group: niota.io
+  names:
+    kind: NodeRedInstance
+    listKind: NodeRedInstanceList
+    plural: noderedinstances
+    singular: noderedinstance
+    shortNames:
+      - nri
+  scope: Namespaced
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      subresources:
+        status: {}
+      additionalPrinterColumns:
+        - name: ID
+          type: string
+          jsonPath: .spec.id
+        - name: Domain
+          type: string
+          jsonPath: .spec.domain
+        - name: Ready
+          type: boolean
+          jsonPath: .status.ready
+        - name: Age
+          type: date
+          jsonPath: .metadata.creationTimestamp
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            apiVersion:
+              type: string
+            kind:
+              type: string
+            metadata:
+              type: object
+            spec:
+              type: object
+              required:
+                - id
+                - domain
+                - tlsSecretName
+                - oauth
+                - image
+              properties:
+                id:
+                  type: string
+                  description: >
+                    Unique Node-RED instance identifier (32-char hex).
+                    Used as the URL path prefix and as the base name for all
+                    managed Kubernetes resources.
+                  pattern: '^[a-f0-9]{32}$'
+                domain:
+                  type: string
+                  description: >
+                    Public hostname under which this instance is accessible
+                    (e.g. flows.datahub.digital).
+                tlsSecretName:
+                  type: string
+                  description: >
+                    Name of the Kubernetes TLS Secret referenced by the Traefik
+                    IngressRoute.
+                ingressClass:
+                  type: string
+                  description: >
+                    Value of the kubernetes.io/ingress.class annotation placed
+                    on the IngressRoute. Useful when multiple Traefik instances
+                    are present in the cluster.
+                  default: traefik
+                oauth:
+                  type: object
+                  description: OAuth2 credentials for the Node-RED passport strategy.
+                  required:
+                    - clientId
+                    - clientSecret
+                    - authUrl
+                    - tokenUrl
+                  properties:
+                    clientId:
+                      type: string
+                      description: OAuth2 client identifier.
+                    clientSecret:
+                      type: string
+                      description: >-
+                        OAuth2 client secret in plaintext. The operator creates
+                        a Kubernetes Secret from this value and keeps it in sync.
+                    authUrl:
+                      type: string
+                      description: OAuth2 authorization endpoint.
+                    tokenUrl:
+                      type: string
+                      description: OAuth2 token endpoint.
+                    clientSecretRef:
+                      type: object
+                      description: >
+                        Reference to the Kubernetes Secret that holds the OAuth2
+                        client secret.
+                      required:
+                        - name
+                      properties:
+                        name:
+                          type: string
+                          description: Name of the Secret.
+                        key:
+                          type: string
+                          description: >
+                            Key within the Secret that contains the client
+                            secret. Defaults to "clientSecret".
+                          default: clientSecret
+                image:
+                  type: object
+                  description: Node-RED container image configuration.
+                  required:
+                    - repository
+                  properties:
+                    repository:
+                      type: string
+                      description: >
+                        Container image repository
+                        (e.g. ghcr.io/my-org/node-red).
+                    tag:
+                      type: string
+                      description: Image tag. Defaults to "latest".
+                      default: latest
+                    pullSecretName:
+                      type: string
+                      description: >
+                        Name of the imagePullSecret used to pull the image.
+                storageSize:
+                  type: string
+                  description: >
+                    Requested PVC capacity for Node-RED data. Defaults to "1Gi".
+                  default: 1Gi
+                storageClass:
+                  type: string
+                  description: >-
+                    StorageClass for the PVC. When omitted the cluster default
+                    is used.
+                credentialSecret:
+                  type: string
+                  description: >-
+                    Node-RED credential encryption key. When omitted the operator
+                    auto-generates a random 32-byte key on first reconciliation.
+                    Set this field when migrating an existing Node-RED instance
+                    so that already-encrypted credentials remain accessible.
+                    The resulting Kubernetes Secret is immutable once created.
+            status:
+              type: object
+              properties:
+                ready:
+                  type: boolean
+                  description: >
+                    True when all managed resources (Deployment, Service, PVC,
+                    IngressRoute) have been successfully reconciled.
+                conditions:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - lastTransitionTime
+                      - message
+                      - reason
+                      - status
+                      - type
+                    properties:
+                      lastTransitionTime:
+                        type: string
+                        format: date-time
+                      message:
+                        type: string
+                        maxLength: 32768
+                      observedGeneration:
+                        type: integer
+                        format: int64
+                        minimum: 0
+                      reason:
+                        type: string
+                        maxLength: 1024
+                        minLength: 1
+                        pattern: '^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$'
+                      status:
+                        type: string
+                        enum:
+                          - "True"
+                          - "False"
+                          - Unknown
+                      type:
+                        type: string
+                        maxLength: 316
+                        pattern: '^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$'
+                  x-kubernetes-list-map-keys:
+                    - type
+                  x-kubernetes-list-type: map
+{{- end }}

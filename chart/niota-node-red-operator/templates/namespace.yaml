@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ include "niota-node-red-operator.namespace" . }}
+  labels:
+    {{- include "niota-node-red-operator.labels" . | nindent 4 }}

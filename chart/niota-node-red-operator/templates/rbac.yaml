@@ -1,0 +1,73 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "niota-node-red-operator.fullname" . }}
+  labels:
+    {{- include "niota-node-red-operator.labels" . | nindent 4 }}
+rules:
+  # NodeRedInstance CR
+  - apiGroups: ["niota.io"]
+    resources: ["noderedinstances"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["niota.io"]
+    resources: ["noderedinstances/status"]
+    verbs: ["get", "update", "patch"]
+  - apiGroups: ["niota.io"]
+    resources: ["noderedinstances/finalizers"]
+    verbs: ["update"]
+
+  # Deployments
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  # Services
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  # PersistentVolumeClaims
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  # ConfigMaps (settings.js)
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  # Secrets (OAuth client secret + credential encryption key)
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  # Traefik IngressRoutes
+  - apiGroups: ["traefik.io"]
+    resources: ["ingressroutes"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  # Leader election
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  # Events
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["create", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "niota-node-red-operator.fullname" . }}
+  labels:
+    {{- include "niota-node-red-operator.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "niota-node-red-operator.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "niota-node-red-operator.serviceAccountName" . }}
+    namespace: {{ include "niota-node-red-operator.namespace" . }}

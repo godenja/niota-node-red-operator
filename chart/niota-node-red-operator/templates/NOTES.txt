@@ -1,0 +1,45 @@
+Thank you for installing {{ .Chart.Name }} v{{ .Chart.AppVersion }}!
+
+Operator namespace : {{ include "niota-node-red-operator.namespace" . }}
+Operator deployment: {{ include "niota-node-red-operator.fullname" . }}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Quick-start: create a NodeRedInstance
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+cat <<EOF | kubectl apply -f -
+apiVersion: niota.io/v1alpha1
+kind: NodeRedInstance
+metadata:
+  name: my-node-red
+  namespace: default
+spec:
+  id: <32-char hex id>       # e.g. e2ba905bf306d3cb20e2cff46faca223
+  domain: flows.example.com
+  tlsSecretName: flows-tls
+  oauth:
+    clientId: <client-id>
+    clientSecret: <client-secret>
+    authUrl: https://auth.example.com/oauth2/authorize
+    tokenUrl: https://auth.example.com/oauth2/token
+  image:
+    repository: ghcr.io/my-org/niota-node-red
+    tag: "3.1.0"
+  storageSize: 2Gi
+EOF
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Check operator status
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+kubectl get pods -n {{ include "niota-node-red-operator.namespace" . }}
+kubectl get noderedinstances --all-namespaces
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Uninstall
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+helm uninstall {{ .Release.Name }}
+
+# CRDs are NOT automatically removed. Delete them manually if desired:
+kubectl delete crd noderedinstances.niota.io
