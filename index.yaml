@@ -3,6 +3,28 @@ entries:
   niota-node-red-operator:
   - apiVersion: v2
     appVersion: latest
+    created: "2026-03-29T19:17:59.092484193Z"
+    description: Kubernetes operator that manages Node-RED instances as a custom resource
+      (NodeRedInstance).
+    digest: bf71be52b779c3084641f0d38896ec2e3262f1168343160cb52c4d3bc70127ca
+    home: https://github.com/godenja/node-red-operator
+    keywords:
+    - node-red
+    - operator
+    - niota
+    - iot
+    maintainers:
+    - email: j.goden@itemsnet.de
+      name: godenja
+    name: niota-node-red-operator
+    sources:
+    - https://github.com/godenja/node-red-operator
+    type: application
+    urls:
+    - https://github.com/godenja/niota-node-red-operator/releases/download/niota-node-red-operator-0.3.0/niota-node-red-operator-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2026-03-29T17:50:12.669436992Z"
     description: Kubernetes operator that manages Node-RED instances as a custom resource
       (NodeRedInstance).
@@ -23,4 +45,4 @@ entries:
     urls:
     - https://github.com/godenja/niota-node-red-operator/releases/download/niota-node-red-operator-0.2.0/niota-node-red-operator-0.2.0.tgz
     version: 0.2.0
-generated: "2026-03-29T17:50:12.66944627Z"
+generated: "2026-03-29T19:17:59.092492839Z"
