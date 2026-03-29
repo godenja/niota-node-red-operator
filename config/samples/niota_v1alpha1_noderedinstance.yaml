@@ -1,5 +1,5 @@
 ---
-apiVersion: niota.io/v1alpha1
+apiVersion: items.io/v1alpha1
 kind: NodeRedInstance
 metadata:
   name: lkos-node-red

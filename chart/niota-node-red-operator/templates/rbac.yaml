@@ -7,13 +7,13 @@ metadata:
     {{- include "niota-node-red-operator.labels" . | nindent 4 }}
 rules:
   # NodeRedInstance CR
-  - apiGroups: ["niota.io"]
+  - apiGroups: ["items.io"]
     resources: ["noderedinstances"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-  - apiGroups: ["niota.io"]
+  - apiGroups: ["items.io"]
     resources: ["noderedinstances/status"]
     verbs: ["get", "update", "patch"]
-  - apiGroups: ["niota.io"]
+  - apiGroups: ["items.io"]
     resources: ["noderedinstances/finalizers"]
     verbs: ["update"]
 

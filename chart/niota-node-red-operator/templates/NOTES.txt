@@ -8,7 +8,7 @@ Operator deployment: {{ include "niota-node-red-operator.fullname" . }}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 cat <<EOF | kubectl apply -f -
-apiVersion: niota.io/v1alpha1
+apiVersion: items.io/v1alpha1
 kind: NodeRedInstance
 metadata:
   name: my-node-red
@@ -42,4 +42,4 @@ kubectl get noderedinstances --all-namespaces
 helm uninstall {{ .Release.Name }}
 
 # CRDs are NOT automatically removed. Delete them manually if desired:
-kubectl delete crd noderedinstances.niota.io
+kubectl delete crd noderedinstances.items.io

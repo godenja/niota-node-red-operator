@@ -7,7 +7,7 @@ import (
 
 var (
 	// GroupVersion is group version used to register these objects.
-	GroupVersion = schema.GroupVersion{Group: "niota.io", Version: "v1alpha1"}
+	GroupVersion = schema.GroupVersion{Group: "items.io", Version: "v1alpha1"}
 
 	// SchemeBuilder is used to add functions to this group's scheme.
 	SchemeBuilder = &scheme.Builder{GroupVersion: GroupVersion}

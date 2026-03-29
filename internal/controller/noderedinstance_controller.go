@@ -34,9 +34,9 @@ const (
 
 // NodeRedInstanceReconciler reconciles NodeRedInstance objects.
 //
-// +kubebuilder:rbac:groups=niota.io,resources=noderedinstances,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=niota.io,resources=noderedinstances/status,verbs=get;update;patch
-// +kubebuilder:rbac:groups=niota.io,resources=noderedinstances/finalizers,verbs=update
+// +kubebuilder:rbac:groups=items.io,resources=noderedinstances,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=items.io,resources=noderedinstances/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=items.io,resources=noderedinstances/finalizers,verbs=update
 // +kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=core,resources=persistentvolumeclaims,verbs=get;list;watch;create;update;patch;delete

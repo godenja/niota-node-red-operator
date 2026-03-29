@@ -55,7 +55,7 @@ func main() {
 		},
 		HealthProbeBindAddress: probeAddr,
 		LeaderElection:         enableLeaderElection,
-		LeaderElectionID:       "niota-node-red-operator.niota.io",
+		LeaderElectionID:       "niota-node-red-operator.items.io",
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")

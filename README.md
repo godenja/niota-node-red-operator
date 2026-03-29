@@ -75,7 +75,7 @@ Once the operator is running, create a `NodeRedInstance` CR to spin up a Node-RE
 ### Minimal example
 
 ```yaml
-apiVersion: niota.io/v1alpha1
+apiVersion: items.io/v1alpha1
 kind: NodeRedInstance
 metadata:
   name: my-node-red
@@ -103,7 +103,7 @@ kubectl apply -f my-node-red.yaml
 ### Full example with optional fields
 
 ```yaml
-apiVersion: niota.io/v1alpha1
+apiVersion: items.io/v1alpha1
 kind: NodeRedInstance
 metadata:
   name: my-node-red
