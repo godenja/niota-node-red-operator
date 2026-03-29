@@ -1,5 +1,5 @@
 # Image repository and tag used when building / pushing the operator container.
-IMG ?= ghcr.io/niota/node-red-operator:latest
+IMG ?= ghcr.io/godenja/niota-node-red-operator:latest
 
 # controller-gen version used to regenerate CRD manifests and deepcopy code.
 CONTROLLER_GEN_VERSION ?= v0.14.0

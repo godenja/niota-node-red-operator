@@ -13,7 +13,7 @@ operator:
 
   image:
     # -- Operator container image repository.
-    repository: ghcr.io/niota/node-red-operator
+    repository: ghcr.io/godenja/niota-node-red-operator
     # -- Image tag. Defaults to the chart appVersion when left empty.
     tag: ""
     # -- Image pull policy.

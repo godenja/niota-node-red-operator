@@ -9,8 +9,9 @@ keywords:
   - operator
   - niota
   - iot
-home: https://github.com/niota/node-red-operator
+home: https://github.com/godenja/node-red-operator
 sources:
-  - https://github.com/niota/node-red-operator
+  - https://github.com/godenja/node-red-operator
 maintainers:
-  - name: niota
+  - name: godenja
+    email: j.goden@itemsnet.de

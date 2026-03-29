@@ -1,4 +1,4 @@
-module github.com/niota/node-red-operator
+module github.com/godenja/niota-node-red-operator
 
 go 1.24.1
 

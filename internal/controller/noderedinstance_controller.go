@@ -21,7 +21,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	niotav1alpha1 "github.com/niota/node-red-operator/api/v1alpha1"
+	niotav1alpha1 "github.com/godenja/niota-node-red-operator/api/v1alpha1"
 )
 
 //go:embed assets/settings.js

@@ -16,8 +16,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 
-	niotav1alpha1 "github.com/niota/node-red-operator/api/v1alpha1"
-	"github.com/niota/node-red-operator/internal/controller"
+	niotav1alpha1 "github.com/godenja/niota-node-red-operator/api/v1alpha1"
+	"github.com/godenja/niota-node-red-operator/internal/controller"
 )
 
 var (
