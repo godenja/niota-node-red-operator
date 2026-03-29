@@ -297,6 +297,9 @@ func (r *NodeRedInstanceReconciler) reconcileDeployment(ctx context.Context, ins
 			Template: corev1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{Labels: labels},
 				Spec: corev1.PodSpec{
+					SecurityContext: &corev1.PodSecurityContext{
+						FSGroup: func() *int64 { v := int64(1000); return &v }(),
+					},
 					ImagePullSecrets: pullSecrets,
 					Containers: []corev1.Container{
 						{
