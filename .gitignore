@@ -2,4 +2,3 @@ bin/
 *.exe
 *.test
 *.out
-go.sum
