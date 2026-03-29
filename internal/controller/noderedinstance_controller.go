@@ -419,8 +419,9 @@ func (r *NodeRedInstanceReconciler) reconcileIngressRoute(ctx context.Context, i
 				"entryPoints": []interface{}{"websecure"},
 				"routes": []interface{}{
 					map[string]interface{}{
-						"match": matchRule,
-						"kind":  "Rule",
+						"match":  matchRule,
+						"kind":   "Rule",
+						"syntax": "v2",
 						"services": []interface{}{
 							map[string]interface{}{
 								"name": instance.Spec.ID,
